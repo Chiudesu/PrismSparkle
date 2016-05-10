@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+
+  "name": "Prism Sparkle",
+  "description": "You can see this world as sparking",
+  "version": "1.0",
+  "icons": {
+    "16": "icons/wait16.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "19": "icons/wait19.png",
+      "38": "icons/wait38.png"
+    }
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "css": ["contents_style.css"],
+    ?
+    "js" : ["Controller.js"]
+  }],
+  "permissions": [ ? ]
+}
