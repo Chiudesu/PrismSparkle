@@ -16,9 +16,6 @@
   },
   "content_scripts": [{
     "matches": ["http://*/*", "https://*/*"],
-    "css": ["contents_style.css"],
-    ?
     "js" : ["Controller.js"]
   }],
-  "permissions": [ ? ]
 }
