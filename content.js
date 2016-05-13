@@ -34,8 +34,8 @@ function startSparkle() {
   //TODO 流し込み
   //<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
   //<object class="PrismSparkle_circle" type="image/svg+xml" data="prismcircle.svg" width="300" height="300" style="position:absolute; left:200px; top:200px;"> </object>
-  $("body").append("<object class=\"PrismSparkle_circle\" type=\"image/svg+xml\" data=\"view-source:http://chiudesu.konjiki.jp/PrismTest/prismcircle.svg\" width=\"300\" height=\"300\" style=\"position:fixed; left:200px; top:200px;\"> </object>");
-  $("body").append("<object class=\"PrismSparkle_circle\" type=\"image/svg+xml\" data=\"view-source:http://chiudesu.konjiki.jp/PrismTest/prismcross.svg\" width=\"150\" height=\"150\" style=\"position:fixed; right:100px; top:200px;\"> </object>");
+  $("body").append("<object class=\"PrismSparkle_circle\" type=\"image/svg+xml\" data=\"http://chiudesu.konjiki.jp/PrismTest/prismcircle.svg\" width=\"300\" height=\"300\" style=\"position:fixed; left:50px; top:100px;\"> </object>");
+  $("body").append("<object class=\"PrismSparkle_cross\"  type=\"image/svg+xml\" data=\"http://chiudesu.konjiki.jp/PrismTest/prismcross.svg\"  width=\"150\" height=\"150\" style=\"position:fixed; right:100px; top:200px;\"> </object>");
 
   //要素取得
   var svgelms = document.getElementsByClassName("PrismSparkle_circle");
