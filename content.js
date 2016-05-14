@@ -1,5 +1,6 @@
 //変数一覧-----------------------------------------------------------------------
 var sparkleVars = { //名前の衝突を防ぐ
+  isSparkling:false,
   tick: undefined,
   wait: undefined,
   FPS: 30,
@@ -134,15 +135,23 @@ chrome.runtime.onMessage.addListener(function(req, sender, sendRes) {
   console.log("getMessage");
   switch (req.type) {
     case "PrismSparkle_start":
+    sparkleVars.isSparkling = true;
       startSparkle();
       sendRes({
         success: true
       });
       break;
     case "PrismSparkle_stop":
+    sparkleVars.isSparkling = false;
       stopSparkle();
       sendRes({
         success: true
+      });
+      break;
+    case "PrismSparkle_ask": //読み込まれていて、かつ描画中ならtrueを返す
+      sendRes({
+        success: true,
+        isSparkling: sparkleVars.isSparkling
       });
       break;
   }
