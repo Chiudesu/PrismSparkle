@@ -1,21 +1,24 @@
 //変数一覧-----------------------------------------------------------------------
 var sparkleVars = { //名前の衝突を防ぐ
-  isSparkling:false,
+  isSparkling: false,
   tick: undefined,
   wait: undefined,
-  FPS: 30,
+  FPS: 15,
   $circles: undefined,
   $crosses: undefined,
+  circles_delay: undefined,
+  crosses_delay: undefined,
   isSVGReady: false,
   cntf: undefined,
   FADE: 120,
-  DUR: 1000.0,
+  DUR: 3000.0,
   circle_R_MAX: 50.0
 };
 
 //SVGの中身---------------------------------------------------------------------
 var sparkleSVGs = {
-  meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"",
+  meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" " +
+    "width=\"400\" height=\"400\"",
   defs: "<defs>" +
     "<radialGradient id=\"PrismSparkle_g0\" cx=\"0.55\" cy=\"0.55\" fx=\"0.25\" fy=\"0.25\" r=\"0.6\">" +
     "<stop offset=\"0.0\" stop-color=\"rgba(0,0,0,0)\"/>" +
@@ -40,16 +43,23 @@ var sparkleSVGs = {
 function sparkle() {
   sparkleVars.cntf += 1000.0 / sparkleVars.FPS;
   sparkleVars.$circles.each(function(i, elm) {
+    var cntf = (sparkleVars.cntf + sparkleVars.circles_delay[i]) % sparkleVars.DUR;
     var $elm = $(elm);
-    $elm.attr("r", (sparkleVars.circle_R_MAX * sparkleVars.cntf / sparkleVars.DUR));
-    $elm.attr("stroke-opacity", Math.sin(Math.PI * sparkleVars.cntf / sparkleVars.DUR) / 3);
+    if (cntf <= 1000.0) {
+      $elm.attr("r", (sparkleVars.circle_R_MAX * cntf / 1000.0));
+      $elm.attr("stroke-opacity", Math.sin(Math.PI * cntf / 1000.0) / 3);
 
-    if (sparkleVars.cntf < sparkleVars.FADE) {
-      $elm.attr("opacity", sparkleVars.cntf / sparkleVars.FADE);
-    } else if (sparkleVars.cntf > sparkleVars.DUR - sparkleVars.FADE) {
-      $elm.attr("opacity", (sparkleVars.DUR - sparkleVars.cntf) / sparkleVars.FADE);
+      if (cntf < sparkleVars.FADE) {
+        $elm.attr("opacity", cntf / sparkleVars.FADE);
+      } else if (cntf > 1000.0 - sparkleVars.FADE) {
+        $elm.attr("opacity", (1000.0 - cntf) / sparkleVars.FADE);
+      } else {
+        $elm.attr("opacity", 1);
+      }
     } else {
-      $elm.attr("opacity", 1);
+      $elm.attr("r", 1);
+      $elm.attr("stroke-opacity", 0);
+      $elm.attr("opacity", 0);
     }
 
   });
@@ -102,21 +112,53 @@ function stopSparkle() {
 
 function appendSVG() {
   console.log("appendSVG");
-  var cis = new Array(1);
+  var cis = new Array(9);
+  sparkleVars.circles_delay = new Array(cis.length);
   var crs = new Array(1);
+  sparkleVars.crosses_delay = new Array(crs.length);
+
   cis[0] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:-50px; top:0px;\" width=\"300\" height=\"300\" " +
+    "style=\"position:fixed; left:-100px; top:-150px;\" " +
     sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[0] = 0;
   cis[1] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:300px; top:-100px;\" width=\"300\" height=\"300\" " +
+    "style=\"position:fixed; left:-200px; top:-120px;\" " +
     sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[1] = sparkleVars.DUR - 900;
   cis[2] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:0px; bottom:0px;\" width=\"300\" height=\"300\" " +
+    "style=\"position:fixed; left:-250px; top:100px;\" " +
     sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[2] = sparkleVars.DUR - 1800;
+  cis[3] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; left:-150px; bottom:0px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[3] = sparkleVars.DUR - 2500;
+  cis[4] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; left:400px; top:-200px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[4] = sparkleVars.DUR - 2000;
+  cis[5] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; right:200px; top:-250px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[5] = sparkleVars.DUR - 2300;
+  cis[6] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; right:-50px; top:-200px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[6] = sparkleVars.DUR - 2100;
+  cis[7] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; right:400px; bottom:-220px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[7] = sparkleVars.DUR - 300;
+  cis[8] = $("<svg class=\"PrismSparkle_circle\" " +
+    "style=\"position:fixed; right:-200px; bottom:50px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.defs + sparkleSVGs.circle + " </svg>");
+  sparkleVars.circles_delay[8] = sparkleVars.DUR - 1300;
   /*
   crs[0] = $("<svg class=\"PrismSparkle_cross\" " +
-    "style=\"position:fixed; right:50px; top:50px;\" width=\"100\" height=\"100\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.cross + " </svg>");*/
+    "style=\"position:fixed; right:50px; top:50px;\" " +
+    sparkleSVGs.meta + ">" + sparkleSVGs.cross + " </svg>");
+    */
+
   for (var i = 0; i < cis.length; i++) {
     $("body").append(cis[i]);
   }
@@ -135,14 +177,14 @@ chrome.runtime.onMessage.addListener(function(req, sender, sendRes) {
   console.log("getMessage");
   switch (req.type) {
     case "PrismSparkle_start":
-    sparkleVars.isSparkling = true;
+      sparkleVars.isSparkling = true;
       startSparkle();
       sendRes({
         success: true
       });
       break;
     case "PrismSparkle_stop":
-    sparkleVars.isSparkling = false;
+      sparkleVars.isSparkling = false;
       stopSparkle();
       sendRes({
         success: true
