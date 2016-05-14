@@ -31,6 +31,8 @@ function updateTab() {
         function(res) {
           if (res === undefined) {
             //まだ読み込まれていない
+            console.log("asked:no response");
+            isSparkling = false;
             chrome.browserAction.setIcon(icons_off);
             return;
           }
@@ -118,3 +120,7 @@ function ensureSendMessage(message, callback) {
 //実行ここから--------------------------------------------------------------------
 chrome.browserAction.onClicked.addListener(updateState);
 chrome.tabs.onActivated.addListener(updateTab);
+chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
+  console.log("onUpdated");
+  if(info.status == "complete")updateTab(tab);
+});
