@@ -58,16 +58,10 @@ function sparkle() {
   }
 }
 
+//要素を流し込み終わった頃にstartSparkleから呼び出される
 function loadAndRunSparkle() {
   console.log("loadAndRunSparkle");
   //要素取得
-  /*
-    var svgelms = document.getElementsByClassName("PrismSparkle_circle");
-    var circles = new Array(svgelms.length);
-    for (var i = 0; i < circles.length; i++) {
-      circles[i] = $(svgelms[i].contentDocument).find("svg").find("circle");
-    };
-    sparkleVars.$circles = $(circles);*/
   sparkleVars.$circles = $(".PrismSparkle_circle circle");
   console.dir(sparkleVars.$circles);
 
@@ -128,7 +122,7 @@ function appendSVG() {
   /*for (var i = 0; i < crs.length; i++) {
     $("body").append(crs[i]);
   }*/
-  cis[0].ready(function() {
+  $(cis).ready(function() {
     console.log("SVG loaded!");
     sparkleVars.isSVGReady = true;
   });
