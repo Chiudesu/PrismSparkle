@@ -25,6 +25,9 @@ function updateTab() {
       currentWindow: true
     },
     function(tabs) {
+      chrome.pageAction.show(tabs[0].id);
+      icons_on.tabId = tabs[0].id;
+      icons_off.tabId = tabs[0].id;
       chrome.tabs.sendMessage(tabs[0].id, {
           type: "PrismSparkle_ask"
         },
@@ -33,17 +36,17 @@ function updateTab() {
             //まだ読み込まれていない
             console.log("asked:no response");
             isSparkling = false;
-            chrome.browserAction.setIcon(icons_off);
+            chrome.pageAction.setIcon(icons_off);
             return;
           }
           console.log("asked:" + res.isSparkling); //レスポンスが返ってきた
           isSparkling = res.isSparkling;
           if (res.isSparkling) {
             //すでに動いている
-            chrome.browserAction.setIcon(icons_on);
+            chrome.pageAction.setIcon(icons_on);
           } else {
             //止まっている
-            chrome.browserAction.setIcon(icons_off);
+            chrome.pageAction.setIcon(icons_off);
           }
         });
     });
@@ -56,7 +59,8 @@ function updateState(tab) {
   isSparkling = !isSparkling;
   if (isSparkling) {
     //開始
-    chrome.browserAction.setIcon(icons_on);
+    icons_on.tabId = tab.id;
+    chrome.pageAction.setIcon(icons_on);
     ensureSendMessage({
         type: "PrismSparkle_start"
       },
@@ -65,7 +69,8 @@ function updateState(tab) {
       });
   } else {
     //停止
-    chrome.browserAction.setIcon(icons_off);
+    icons_off.tabId = tab.id;
+    chrome.pageAction.setIcon(icons_off);
     ensureSendMessage({
         type: "PrismSparkle_stop"
       },
@@ -118,12 +123,13 @@ function ensureSendMessage(message, callback) {
 }
 
 //実行ここから--------------------------------------------------------------------
-chrome.browserAction.onClicked.addListener(updateState);
+chrome.pageAction.onClicked.addListener(updateState);
 chrome.tabs.onActivated.addListener(updateTab);
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
   console.log("onUpdated");
   if (info.status == "complete") updateTab();
 });
 chrome.windows.onFocusChanged.addListener(function(id) {
-    updateTab();
+  console.log("onFocusChanged");
+  updateTab();
 });
