@@ -122,5 +122,8 @@ chrome.browserAction.onClicked.addListener(updateState);
 chrome.tabs.onActivated.addListener(updateTab);
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
   console.log("onUpdated");
-  if(info.status == "complete")updateTab(tab);
+  if (info.status == "complete") updateTab();
+});
+chrome.windows.onFocusChanged.addListener(function(id) {
+    updateTab();
 });
