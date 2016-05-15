@@ -19,7 +19,7 @@ var sparkleVars = { //名前の衝突を防ぐ
 var sparkleSVGs = {
   meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"",
   circle_meta: "class=\"PrismSparkle_circle\" width=\"400\" height=\"400\"",
-  cross_meta: "class=\"PrismSparkle_cross\" width=\"100\" height=\"100\"",
+  cross_meta: "class=\"PrismSparkle_cross\" width=\"50\" height=\"50\"",
   defs: "<defs>" +
     "<radialGradient id=\"PrismSparkle_g0\" cx=\"0.55\" cy=\"0.55\" fx=\"0.25\" fy=\"0.25\" r=\"0.6\">" +
     "<stop offset=\"0.0\" stop-color=\"rgba(0,0,0,0)\"/>" +
@@ -75,6 +75,27 @@ function sparkle() {
     }
 
   });
+  sparkleVars.$crosses.each(function(i, elm) {
+    var cntf = ((sparkleVars.cntf + sparkleVars.crosses_delay[Math.floor(i / 2)]) % sparkleVars.DUR) % 1000;
+    var $elm = $(elm);
+    if (cntf <= 500.0) {
+      $elm.attr("opacity", Math.sin(Math.PI * cntf / 500.0));
+      if ($elm.hasClass("PrismSparkle_cross_back")) {
+        $elm.attr("x1", 50 - 50 * (cntf / 500.0));
+        $elm.attr("y1", 50 - 50 * (cntf / 500.0));
+        $elm.attr("x2", 50 + 50 * (cntf / 500.0));
+        $elm.attr("y2", 50 + 50 * (cntf / 500.0));
+      } else if ($elm.hasClass("PrismSparkle_cross_slash")) {
+        $elm.attr("x1", 50 + 50 * (cntf / 500.0));
+        $elm.attr("y1", 50 - 50 * (cntf / 500.0));
+        $elm.attr("x2", 50 - 50 * (cntf / 500.0));
+        $elm.attr("y2", 50 + 50 * (cntf / 500.0));
+
+      }
+    } else {
+      $elm.attr("opacity", 0);
+    }
+  });
   if (sparkleVars.cntf > sparkleVars.DUR) { //cntf: 1000/FPS to DUR
     console.log("Sparkle:reset cntf");
     sparkleVars.cntf = 0.0;
@@ -87,6 +108,8 @@ function loadAndRunSparkle() {
   //要素取得
   sparkleVars.$circles = $(".PrismSparkle_circle circle");
   console.dir(sparkleVars.$circles);
+  sparkleVars.$crosses = $(".PrismSparkle_cross line");
+  console.dir(sparkleVars.$crosses);
 
   //描画開始
   sparkleVars.cntf = 0.0;
@@ -120,13 +143,17 @@ function stopSparkle() {
     $elm.attr("stroke-opacity", 0);
     $elm.attr("opacity", 0);
   });
+  sparkleVars.$crosses.each(function(i, elm) {
+    $elm = $(elm);
+    $elm.attr("opacity", 0);
+  });
 }
 
 function appendSVG() {
   console.log("appendSVG");
   var cis = new Array(9);
   sparkleVars.circles_delay = new Array(cis.length);
-  var crs = new Array(1);
+  var crs = new Array(6);
   sparkleVars.crosses_delay = new Array(crs.length);
 
   var defs = $("<svg>" + sparkleSVGs.defs + "</svg>");
@@ -149,8 +176,18 @@ function appendSVG() {
   cis[8] = $("<svg style=\"position:fixed; right:-200px; bottom:50px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[8] = sparkleVars.DUR - 1300;
 
-  crs[0] = $("<svg style=\"position:fixed; right:0px; top:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[0] = $("<svg style=\"position:fixed; left:0px; top:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[0] = 0;
+  crs[1] = $("<svg style=\"position:fixed; left:-20px; top:10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[1] = sparkleVars.DUR - 200;
+  crs[2] = $("<svg style=\"position:fixed; left:10px; bottom:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[2] = sparkleVars.DUR - 500;
+  crs[3] = $("<svg style=\"position:fixed; right:10px; bottom:-30px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[3] = sparkleVars.DUR - 0;
+  crs[4] = $("<svg style=\"position:fixed; right:-10px; bottom:10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[4] = sparkleVars.DUR - 800;
+  crs[5] = $("<svg style=\"position:fixed; right:0px; top:-10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[5] = sparkleVars.DUR - 200;
 
   $("body").append(defs);
   for (var i = 0; i < cis.length; i++) {
