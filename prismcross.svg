@@ -2,15 +2,15 @@
   <defs>
     <radialGradient id="PrismSparkle_g2" cx="0.8" cy="0.2" r="1.0">
       <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
-        <stop offset="0.5" stop-color="rgba(255,255,255,255)"/>
-        <stop offset="0.9" stop-color="rgba(222,255,222,0)"/>
+      <stop offset="0.5" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.9" stop-color="rgba(222,255,222,0)"/>
     </radialGradient>
-      <radialGradient id="PrismSparkle_g3" cx="0.1" cy="0.1" r="1.2">
-        <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
-          <stop offset="0.6" stop-color="rgba(255,255,255,255)"/>
-          <stop offset="0.9" stop-color="rgba(222,255,255,0)"/>
-      </radialGradient>
-        <!-- <radialGradient id="PrismSparkle_g4" cx="0.5" cy="0.5" r="0.4">
+    <radialGradient id="PrismSparkle_g3" cx="0.1" cy="0.1" r="1.2">
+      <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.6" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.9" stop-color="rgba(222,255,255,0)"/>
+    </radialGradient>
+    <!-- <radialGradient id="PrismSparkle_g4" cx="0.5" cy="0.5" r="0.4">
           <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
             <stop offset="0.4" stop-color="rgba(255,255,255,255)"/>
             <stop offset="0.9" stop-color="rgba(255,255,222,0)"/>

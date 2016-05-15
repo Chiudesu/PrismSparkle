@@ -17,8 +17,9 @@ var sparkleVars = { //名前の衝突を防ぐ
 
 //SVGの中身---------------------------------------------------------------------
 var sparkleSVGs = {
-  meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" " +
-    "width=\"400\" height=\"400\"",
+  meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"",
+  circle_meta: "class=\"PrismSparkle_circle\" width=\"400\" height=\"400\"",
+  cross_meta: "class=\"PrismSparkle_cross\" width=\"100\" height=\"100\"",
   defs: "<defs>" +
     "<radialGradient id=\"PrismSparkle_g0\" cx=\"0.55\" cy=\"0.55\" fx=\"0.25\" fy=\"0.25\" r=\"0.6\">" +
     "<stop offset=\"0.0\" stop-color=\"rgba(0,0,0,0)\"/>" +
@@ -33,9 +34,20 @@ var sparkleSVGs = {
     "<stop offset=\"0.95\" stop-color=\"rgba(0,255,255,0)\"/>" +
     "<stop offset=\"1.0\" stop-color=\"rgba(255,255,0,255)\"/>" +
     "</linearGradient>" +
+    "<radialGradient id=\"PrismSparkle_g2\" cx=\"0.8\" cy=\"0.2\" r=\"1.0\">" +
+    "<stop offset=\"0.0\" stop-color=\"rgba(255,255,255,255)\"/>" +
+    "<stop offset=\"0.5\" stop-color=\"rgba(255,255,255,255)\"/>" +
+    "<stop offset=\"0.9\" stop-color=\"rgba(222,255,222,0)\"/>" +
+    "</radialGradient>" +
+    "<radialGradient id=\"PrismSparkle_g3\" cx=\"0.1\" cy=\"0.1\" r=\"1.2\">" +
+    "<stop offset=\"0.0\" stop-color=\"rgba(255,255,255,255)\"/>" +
+    "<stop offset=\"0.6\" stop-color=\"rgba(255,255,255,255)\"/>" +
+    "<stop offset=\"0.9\" stop-color=\"rgba(222,255,255,0)\"/>" +
+    "</radialGradient>" +
     "</defs>",
   circle: "<circle stroke=\"url(#PrismSparkle_g1)\" stroke-opacity=\"0.0\" stroke-width=\"3\" fill=\"url(#PrismSparkle_g0)\" opacity=\"0\" cx=\"50\" cy=\"50\" r=\"50\"></circle>",
-  cross: "<rect stroke=\"blue\" stroke-opacity=\"1.0\" stroke-width=\"3\" fill=\"green\" opacity=\"1\" x=\"0\" y=\"0\" width=\"100\" height=\"100\"></rect>"
+  cross: "<line class=\"PrismSparkle_cross_back\" stroke=\"url(#PrismSparkle_g2)\" opacity=\"0.95\" stroke-width=\"8\" x1=\"0\" y1=\"0\" x2=\"100\" y2=\"100\"></line>" +
+    "<line class=\"PrismSparkle_cross_slash\" stroke=\"url(#PrismSparkle_g3)\" opacity=\"0.95\" stroke-width=\"8\" x1=\"100\" y1=\"0\" x2=\"0\" y2=\"100\"></line>"
 };
 
 //関数定義-----------------------------------------------------------------------
@@ -117,59 +129,43 @@ function appendSVG() {
   var crs = new Array(1);
   sparkleVars.crosses_delay = new Array(crs.length);
 
-var defs = $("<svg>"+sparkleSVGs.defs+"</svg>");
-  cis[0] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:-100px; top:-150px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  var defs = $("<svg>" + sparkleSVGs.defs + "</svg>");
+  cis[0] = $("<svg style=\"position:fixed; left:-100px; top:-150px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[0] = 0;
-  cis[1] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:-200px; top:-120px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[1] = $("<svg style=\"position:fixed; left:-200px; top:-120px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[1] = sparkleVars.DUR - 900;
-  cis[2] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:-250px; top:100px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[2] = $("<svg style=\"position:fixed; left:-250px; top:100px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[2] = sparkleVars.DUR - 1800;
-  cis[3] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:-150px; bottom:0px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[3] = $("<svg style=\"position:fixed; left:-150px; bottom:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[3] = sparkleVars.DUR - 2500;
-  cis[4] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; left:400px; top:-200px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[4] = $("<svg style=\"position:fixed; left:400px; top:-200px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[4] = sparkleVars.DUR - 2000;
-  cis[5] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:200px; top:-250px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[5] = $("<svg style=\"position:fixed; right:200px; top:-250px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[5] = sparkleVars.DUR - 2300;
-  cis[6] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:-50px; top:-200px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[6] = $("<svg style=\"position:fixed; right:-50px; top:-200px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[6] = sparkleVars.DUR - 2100;
-  cis[7] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:400px; bottom:-220px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[7] = $("<svg style=\"position:fixed; right:400px; bottom:-220px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[7] = sparkleVars.DUR - 300;
-  cis[8] = $("<svg class=\"PrismSparkle_circle\" " +
-    "style=\"position:fixed; right:-200px; bottom:50px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[8] = $("<svg style=\"position:fixed; right:-200px; bottom:50px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[8] = sparkleVars.DUR - 1300;
-  /*
-  crs[0] = $("<svg class=\"PrismSparkle_cross\" " +
-    "style=\"position:fixed; right:50px; top:50px;\" " +
-    sparkleSVGs.meta + ">" + sparkleSVGs.cross + " </svg>");
-    */
 
-      $("body").append(defs);
+  crs[0] = $("<svg style=\"position:fixed; right:0px; top:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  sparkleVars.crosses_delay[0] = 0;
+
+  $("body").append(defs);
   for (var i = 0; i < cis.length; i++) {
     $("body").append(cis[i]);
   }
-  /*for (var i = 0; i < crs.length; i++) {
+  for (var i = 0; i < crs.length; i++) {
     $("body").append(crs[i]);
-  }*/
-  $(cis).ready(function() {
-    console.log("SVG loaded!");
-    sparkleVars.isSVGReady = true;
+  }
+  $(defs).ready(function() {
+    $(cis).ready(function() {
+      $(crs).ready(function() {
+        console.log("SVG loaded!");
+        sparkleVars.isSVGReady = true;
+      });
+    });
   });
 }
 
