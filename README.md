@@ -14,13 +14,7 @@
 3. 「パッケージ化されていない拡張機能を読み込む...」から、manifest.jsonの入っているフォルダを選びます。
 4. chrome右上にアイコンが表示されているはずです。
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
 ### Who do I talk to? ###
 
-* Created by Chiudesu
+* Owner : Chiudesu
 * Special Thanks : KING OF PRISM and Pretty Rhythm
