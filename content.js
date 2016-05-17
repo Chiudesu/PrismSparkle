@@ -17,7 +17,8 @@ var sparkleVars = { //名前の衝突を防ぐ
 
 //SVGの中身---------------------------------------------------------------------
 var sparkleSVGs = {
-  meta: "viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"",
+  //metaはstyleの続きから
+  meta: "pointer-events: none;\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\"",
   circle_meta: "class=\"PrismSparkle_circle\" width=\"400\" height=\"400\"",
   cross_meta: "class=\"PrismSparkle_cross\" width=\"50\" height=\"50\"",
   defs: "<defs>" +
@@ -157,36 +158,36 @@ function appendSVG() {
   sparkleVars.crosses_delay = new Array(crs.length);
 
   var defs = $("<svg>" + sparkleSVGs.defs + "</svg>");
-  cis[0] = $("<svg style=\"position:fixed; left:-100px; top:-150px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[0] = $("<svg style=\"position:fixed; left:-100px; top:-150px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[0] = 0;
-  cis[1] = $("<svg style=\"position:fixed; left:-200px; top:-120px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[1] = $("<svg style=\"position:fixed; left:-200px; top:-120px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[1] = sparkleVars.DUR - 900;
-  cis[2] = $("<svg style=\"position:fixed; left:-250px; top:100px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[2] = $("<svg style=\"position:fixed; left:-250px; top:100px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[2] = sparkleVars.DUR - 1800;
-  cis[3] = $("<svg style=\"position:fixed; left:-150px; bottom:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[3] = $("<svg style=\"position:fixed; left:-150px; bottom:0px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[3] = sparkleVars.DUR - 2500;
-  cis[4] = $("<svg style=\"position:fixed; left:400px; top:-200px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[4] = $("<svg style=\"position:fixed; left:400px; top:-200px;　" + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[4] = sparkleVars.DUR - 2000;
-  cis[5] = $("<svg style=\"position:fixed; right:200px; top:-250px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[5] = $("<svg style=\"position:fixed; right:200px; top:-250px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[5] = sparkleVars.DUR - 2300;
-  cis[6] = $("<svg style=\"position:fixed; right:-50px; top:-200px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[6] = $("<svg style=\"position:fixed; right:-50px; top:-200px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[6] = sparkleVars.DUR - 2100;
-  cis[7] = $("<svg style=\"position:fixed; right:400px; bottom:-220px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[7] = $("<svg style=\"position:fixed; right:400px; bottom:-220px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[7] = sparkleVars.DUR - 300;
-  cis[8] = $("<svg style=\"position:fixed; right:-200px; bottom:50px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
+  cis[8] = $("<svg style=\"position:fixed; right:-200px; bottom:50px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
   sparkleVars.circles_delay[8] = sparkleVars.DUR - 1300;
 
-  crs[0] = $("<svg style=\"position:fixed; left:0px; top:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[0] = $("<svg style=\"position:fixed; left:0px; top:0px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[0] = 0;
-  crs[1] = $("<svg style=\"position:fixed; left:-20px; top:10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[1] = $("<svg style=\"position:fixed; left:-20px; top:10px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[1] = sparkleVars.DUR - 200;
-  crs[2] = $("<svg style=\"position:fixed; left:10px; bottom:0px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[2] = $("<svg style=\"position:fixed; left:10px; bottom:0px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[2] = sparkleVars.DUR - 500;
-  crs[3] = $("<svg style=\"position:fixed; right:10px; bottom:-30px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[3] = $("<svg style=\"position:fixed; right:10px; bottom:-30px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[3] = sparkleVars.DUR - 0;
-  crs[4] = $("<svg style=\"position:fixed; right:-10px; bottom:10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[4] = $("<svg style=\"position:fixed; right:-10px; bottom:10px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[4] = sparkleVars.DUR - 800;
-  crs[5] = $("<svg style=\"position:fixed; right:0px; top:-10px;\" " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
+  crs[5] = $("<svg style=\"position:fixed; right:0px; top:-10px; " + sparkleSVGs.meta + " " + sparkleSVGs.cross_meta + ">" + sparkleSVGs.cross + " </svg>");
   sparkleVars.crosses_delay[5] = sparkleVars.DUR - 200;
 
   $("body").append(defs);
