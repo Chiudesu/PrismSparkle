@@ -4,18 +4,20 @@ var icons_on = {
   path: {
     "19": "icons/enable19.png",
     "38": "icons/enable38.png"
-  }
+  },
+  tabId: undefined
 };
 var icons_off = {
   path: {
     "19": "icons/wait19.png",
     "38": "icons/wait38.png"
-  }
+  },
+  tabId: undefined
 };
 
 //関数定義-----------------------------------------------------------------------
 //アクティブなタブが変わったら呼び出し
-function updateTab() {
+function updateTab(completedf) {
   console.log("updateTab");
   //タブにスクリプトが読み込まれているかどうかを確認してアイコンの状態を変える
 
@@ -25,6 +27,9 @@ function updateTab() {
       currentWindow: true
     },
     function(tabs) {
+      chrome.pageAction.show(tabs[0].id);
+      icons_on.tabId = tabs[0].id;
+      icons_off.tabId = tabs[0].id;
       chrome.tabs.sendMessage(tabs[0].id, {
           type: "PrismSparkle_ask"
         },
@@ -33,18 +38,19 @@ function updateTab() {
             //まだ読み込まれていない
             console.log("asked:no response");
             isSparkling = false;
-            chrome.browserAction.setIcon(icons_off);
-            return;
-          }
-          console.log("asked:" + res.isSparkling); //レスポンスが返ってきた
-          isSparkling = res.isSparkling;
-          if (res.isSparkling) {
-            //すでに動いている
-            chrome.browserAction.setIcon(icons_on);
+            chrome.pageAction.setIcon(icons_off);
           } else {
-            //止まっている
-            chrome.browserAction.setIcon(icons_off);
+            console.log("asked:" + res.isSparkling); //レスポンスが返ってきた
+            isSparkling = res.isSparkling;
+            if (res.isSparkling) {
+              //すでに動いている
+              chrome.pageAction.setIcon(icons_on);
+            } else {
+              //止まっている
+              chrome.pageAction.setIcon(icons_off);
+            }
           }
+          if (completedf !== undefined) completedf();//完了のcallback
         });
     });
 }
@@ -52,27 +58,31 @@ function updateTab() {
 //アイコンクリックで呼び出し
 function updateState(tab) {
   console.log("updateState");
+  updateTab(function() {
+    if (!isSparkling) {
+      //開始
+      chrome.pageAction.setIcon(icons_on);
+      ensureSendMessage({
+          type: "PrismSparkle_start"
+        },
+        function(res) {
+          console.log("started:" + res); //レスポンスが返ってきた
+          isSparkling = true;
+        });
+    } else {
+      //停止
+      icons_off.tabId = tab.id;
+      chrome.pageAction.setIcon(icons_off);
+      ensureSendMessage({
+          type: "PrismSparkle_stop"
+        },
+        function(res) {
+          console.log("stopped:" + res); //レスポンスが返ってきた
+          isSparkling = false;
+        });
+    }
+  });
 
-  isSparkling = !isSparkling;
-  if (isSparkling) {
-    //開始
-    chrome.browserAction.setIcon(icons_on);
-    ensureSendMessage({
-        type: "PrismSparkle_start"
-      },
-      function(res) {
-        console.log("started:" + res); //レスポンスが返ってきた
-      });
-  } else {
-    //停止
-    chrome.browserAction.setIcon(icons_off);
-    ensureSendMessage({
-        type: "PrismSparkle_stop"
-      },
-      function(res) {
-        console.log("stopped:" + res); //レスポンスが返ってきた
-      });
-  }
 }
 
 //初めてのtabで実行されたらまずスクリプトを流し込む
@@ -89,7 +99,7 @@ function initContent(tabId, completedf) {
       throw Error("Unable to inject script into tab " + tabId);
     }
 
-    completedf();
+    if (completedf !== undefined) completedf();//完了のcallback
   });
 }
 
@@ -118,12 +128,13 @@ function ensureSendMessage(message, callback) {
 }
 
 //実行ここから--------------------------------------------------------------------
-chrome.browserAction.onClicked.addListener(updateState);
+chrome.pageAction.onClicked.addListener(updateState);
 chrome.tabs.onActivated.addListener(updateTab);
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
   console.log("onUpdated");
   if (info.status == "complete") updateTab();
 });
 chrome.windows.onFocusChanged.addListener(function(id) {
-    updateTab();
+  console.log("onFocusChanged");
+  updateTab();
 });

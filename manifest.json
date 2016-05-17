@@ -8,7 +8,7 @@
     "16": "icons/wait16.png"
   },
 
-  "browser_action": {
+  "page_action": {
     "default_icon": {
       "19": "icons/wait19.png",
       "38": "icons/wait38.png"
