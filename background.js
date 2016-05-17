@@ -50,7 +50,7 @@ function updateTab(completedf) {
               chrome.pageAction.setIcon(icons_off);
             }
           }
-          if (completedf !== undefined) completedf();//完了のcallback
+          if (completedf !== undefined) completedf(); //完了のcallback
         });
     });
 }
@@ -99,7 +99,7 @@ function initContent(tabId, completedf) {
       throw Error("Unable to inject script into tab " + tabId);
     }
 
-    if (completedf !== undefined) completedf();//完了のcallback
+    if (completedf !== undefined) completedf(); //完了のcallback
   });
 }
 

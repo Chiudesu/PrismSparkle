@@ -1,6 +1,24 @@
 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+  <defs>
+    <radialGradient id="PrismSparkle_g2" cx="0.8" cy="0.2" r="1.0">
+      <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.5" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.9" stop-color="rgba(222,255,222,0)"/>
+    </radialGradient>
+    <radialGradient id="PrismSparkle_g3" cx="0.1" cy="0.1" r="1.2">
+      <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.6" stop-color="rgba(255,255,255,255)"/>
+      <stop offset="0.9" stop-color="rgba(222,255,255,0)"/>
+    </radialGradient>
+    <!-- <radialGradient id="PrismSparkle_g4" cx="0.5" cy="0.5" r="0.4">
+          <stop offset="0.0" stop-color="rgba(255,255,255,255)"/>
+            <stop offset="0.4" stop-color="rgba(255,255,255,255)"/>
+            <stop offset="0.9" stop-color="rgba(255,255,222,0)"/>
+        </radialGradient> -->
 
-  <rect stroke="blue" stroke-opacity="1.0" stroke-width="3" fill="green" opacity="1" x="0" y="0" width="100" height="100">
-  </rect>
+  </defs>
+  <line stroke="url(#PrismSparkle_g2)" opacity="0.95" stroke-width="8" x1="0" y1="0" x2="100" y2="100"></line>
+  <line stroke="url(#PrismSparkle_g3)" opacity="0.95" stroke-width="8" x1="100" y1="0" x2="0" y2="100"></line>
+  <!-- <circle fill="url(#PrismSparkle_g4)" opacity="0.8" stroke="none" cx="50" cy="50" r="30"></circle> -->
 
 </svg>
