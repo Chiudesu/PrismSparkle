@@ -2,15 +2,13 @@
 var isSparkling = false;
 var icons_on = {
   path: {
-    "19": "icons/enable19.png",
-    "38": "icons/enable38.png"
+    "19": "icons/enable19.png"
   },
   tabId: undefined
 };
 var icons_off = {
   path: {
-    "19": "icons/wait19.png",
-    "38": "icons/wait38.png"
+    "19": "icons/wait19.png"
   },
   tabId: undefined
 };
