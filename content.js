@@ -3,7 +3,7 @@ var sparkleVars = { //名前の衝突を防ぐ
   isSparkling: false,
   tick: undefined,
   wait: undefined,
-  FPS: 15,
+  FPS: 30,
   ctx: undefined,
   cv: undefined,
   circles: undefined,
@@ -12,7 +12,7 @@ var sparkleVars = { //名前の衝突を防ぐ
   cntf: undefined,
   FADE: 120,
   DUR: 3000.0,
-  circle_R_MAX: 400
+  circle_R_MAX: 200
 };
 
 
@@ -27,21 +27,17 @@ function sparkle() {
   sparkleVars.circles.forEach(function(c) {
     var cntf = (sparkleVars.cntf + c.delay) % sparkleVars.DUR;
     if (cntf <= 1000.0) {
-      sparkleVars.ctx.fillStyle = "rgba(0, 0, 255,255)";
-      sparkleVars.ctx.beginPath();
-      sparkleVars.ctx.arc(w * c.xp, h * c.yp, (sparkleVars.circle_R_MAX * cntf / 1000.0), 0, Math.PI * 2, true);
-      sparkleVars.ctx.fill();
-      // +     cis[0] = $("<svg style=\"position:fixed; left:-100px; top:-150px; " + sparkleSVGs.meta + " " + sparkleSVGs.circle_meta + ">" + sparkleSVGs.circle + " </svg>");
-      //$elm.attr("r", (sparkleVars.circle_R_MAX * cntf / 1000.0));
-      //$elm.attr("stroke-opacity", Math.sin(Math.PI * cntf / 1000.0) / 3);
 
+        sparkleVars.ctx.beginPath();
+        sparkleVars.ctx.arc(w * c.xp, h * c.yp, (sparkleVars.circle_R_MAX * cntf / 1000.0), 0, Math.PI * 2, true);
       if (cntf < sparkleVars.FADE) {
-        //$elm.attr("opacity", cntf / sparkleVars.FADE);
+          sparkleVars.ctx.fillStyle = "rgba(0, 0, 255,"+cntf/sparkleVars.FADE+")";
       } else if (cntf > 1000.0 - sparkleVars.FADE) {
-        //$elm.attr("opacity", (1000.0 - cntf) / sparkleVars.FADE);
+          sparkleVars.ctx.fillStyle = "rgba(0, 0, 255,"+(1000.0 - cntf) / sparkleVars.FADE+")";
       } else {
-        //$elm.attr("opacity", 1);
+        sparkleVars.ctx.fillStyle = "rgba(0, 0, 255,1)";
       }
+        sparkleVars.ctx.fill();
     }
 
     c = sparkleVars;
@@ -108,7 +104,7 @@ function appendCV() {
   var h = screen.availHeight;
   cv.setAttribute("width", w);
   cv.setAttribute("height", h);
-  cv.setAttribute("style", "position:fixed; left:0px; top:0px;");
+  cv.setAttribute("style", "position:fixed; left:0px; top:0px; pointer-events: none;");
   document.body.appendChild(cv);
 
   //cv.ready(function() {
