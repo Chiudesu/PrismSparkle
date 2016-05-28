@@ -87,9 +87,6 @@ function updateState(tab) {
 function initContent(tabId, completedf) {
   console.log("init");
   chrome.tabs.executeScript(tabId, {
-    file: "jquery-2.2.3.min.js" //TODO:jQueryのバージョンが違うと衝突するのでは?　content側でjQueryを確認して読む
-  });
-  chrome.tabs.executeScript(tabId, {
     file: "content.js"
   }, function() {
     if (chrome.runtime.lastError) {
